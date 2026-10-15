@@ -1,79 +1,125 @@
-# Fizza Yousaf — React Portfolio
+# Fizza Yousaf | Frontend Developer Portfolio
 
-A complete responsive React + JavaScript portfolio with six pages, real supplied project screenshots, your photograph, original CV, LinkedIn, and a local interactive portfolio assistant.
+Welcome to my personal portfolio! I'm **Fizza Yousaf**, a Software Engineering graduate and Frontend Developer passionate about building modern, responsive, and user-friendly web applications.
 
-## Open in VS Code
+This portfolio showcases my technical skills, professional experience, and selected projects developed using React, JavaScript, HTML, CSS, WordPress, and Webflow.
+
+## About the Portfolio
+
+My portfolio is built using **React.js and Vite**, focusing on clean design, reusable components, smooth navigation, and responsive layouts.
+
+### Features
+
+- Modern and responsive user interface
+- Home, About, Skills, Experience, Projects, and Contact sections
+- Interactive project showcase
+- Project screenshots and GitHub repository links
+- Professional experience and technical skills
+- Downloadable CV
+- GitHub and LinkedIn profile links
+- Mobile-friendly navigation
+
+## Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| React.js | Component-based frontend development |
+| JavaScript (ES6+) | Application functionality |
+| HTML5 | Page structure |
+| CSS3 | Styling and responsive layouts |
+| React Router | Navigation |
+| Vite | Development server and production builds |
+| Git & GitHub | Version control |
+| Vercel | Website deployment |
+
+## Featured Projects
+
+### 1. AI Website Audit Tool
+
+A JavaScript-based website analysis tool that uses Google PageSpeed Insights and Gemini AI to generate website performance, accessibility, and SEO recommendations.
+
+[GitHub Repository](https://github.com/fizza-yousaf/AI-Website-audit-tool)
+
+### 2. React Expense Tracker
+
+A React application for managing daily expenses, tracking spending by category, and calculating total and average expenses. Uses localStorage for data persistence.
+
+[GitHub Repository](https://github.com/fizza-yousaf/epense-tracker)
+
+### 3. NOVARA E-Commerce Store
+
+An interactive e-commerce frontend featuring product categories, filtering, sorting, a shopping cart, and a wishlist.
+
+[GitHub Repository](https://github.com/fizza-yousaf/E-commerce_store)
+
+### 4. TripMate – Smart Trip Planner
+
+A JavaScript-based trip planning application featuring destination management, activity suggestions, date handling, and weather integration.
+
+[GitHub Repository](https://github.com/fizza-yousaf/Trip-mate)
+
+### 5. Admin Dashboard
+
+A responsive admin dashboard featuring interactive charts, data tables, and dashboard components using JavaScript and Chart.js.
+
+[GitHub Repository](https://github.com/fizza-yousaf/Admin-dashboard)
+
+## Getting Started
+
+To run this portfolio locally:
+
+**1. Clone the repository**
+
+```bash
+git clone https://github.com/fizza-yousaf/portfolio-website.git
+```
+
+**2. Navigate to the project folder**
+
+```bash
+cd portfolio-website
+```
+
+**3. Install dependencies**
 
 ```bash
 npm install
+```
+
+**4. Start the development server**
+
+```bash
 npm run dev
 ```
 
-Visit the localhost address printed in your terminal.
+Open the local URL displayed in your terminal, usually `http://localhost:5173`.
 
-## Test the production build
+**5. Build for production**
 
 ```bash
 npm run build
-npm run preview
 ```
 
-## Deploy on GitHub Pages (automatic)
-
-1. Create a **public** GitHub repository named **`fizza-yousaf-portfolio`** in the account `fizza-yousaf`.
-2. Open this folder in VS Code and run:
-
-```bash
-git init
-git add .
-git commit -m "Build React portfolio"
-git branch -M main
-git remote add origin https://github.com/fizza-yousaf/fizza-yousaf-portfolio.git
-git push -u origin main
-```
-
-3. In GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-4. The included workflow `.github/workflows/deploy.yml` installs, builds and publishes automatically after a push to `main`.
-5. Open `https://fizza-yousaf.github.io/fizza-yousaf-portfolio/` once the action completes.
-
-**Important:** This project is configured for that exact GitHub repository name. If you use a different repository, change the `base` path in `vite.config.js`. The site uses `HashRouter` so inner pages work after refresh.
-
-## Deploy on Vercel
-
-1. Import the GitHub repository into Vercel.
-2. Framework: **Vite**; Build Command: `npm run build`; Output Directory: `dist`.
-3. Add an environment variable: `VITE_DEPLOY_TARGET=vercel`.
-4. Deploy. The Vercel environment setting changes the Vite base to `/`.
-
-## Update content
-
-- `src/data.js` — project links, work experience, skills, contact info and LinkedIn.
-- `public/Fizza-Yousaf-CV.pdf` — original CV, unchanged.
-- `public/fizza-portrait.png` — your supplied portrait with processed background.
-- `public/projects/` — genuine screenshots you provided.
-- WordPress/Webflow client projects have real site links but **no screenshots** because no authentic screenshot was available. To add one, put it in `public/projects/` and set its `image` field in `src/data.js`.
-- AI Website Audit Tool has a live link but no supplied screenshot.
-- The assistant is a **local rule-based portfolio guide**, not a live generative AI service; no API key is exposed.
-- The contact form uses `mailto:` and opens the visitor's email app; it does not send directly from a server.
-
-## Structure
+## Project Structure
 
 ```text
-src/components/     Navigation, project cards, portfolio assistant
-src/pages/          Home, About, Skills, Experience, Projects, Contact
-src/data.js         Editable content
-src/styles.css      Design system and responsive styles
-public/projects/    Original screenshots
-.github/workflows/  Automatic GitHub Pages deployment
+portfolio-website/
+├── public/
+├── src/
+├── index.html
+├── package.json
+├── vite.config.js
+└── README.md
 ```
 
-## Services page
-The `/services` route contains six editable service cards. Edit `src/pages/Services.jsx` to update services, descriptions and tags. Navigation is defined in `src/components/Navbar.jsx`.
+## Deployment
 
-## October 2026 portfolio updates
-- Six authentic client website screenshots added under `public/projects/`.
-- React Portfolio removed from the project list.
-- Updated navigation/footer wordmark to FY + Fizza Yousaf.
-- Original client live URLs retained from `src/data.js`.
-- GitHub repository links are included only where a direct URL was supplied; other code links remain blank rather than pointing to an unverified repository.
-- To add more repositories, update the `code` fields in `src/data.js`.
+The portfolio is designed to be deployed using Vercel, with automatic deployment support through GitHub integration.
+
+## Contact
+
+I'm open to frontend development opportunities, internships, freelance projects, and professional collaborations.
+
+- **GitHub:** [fizza-yousaf](https://github.com/fizza-yousaf)
+- **Portfolio Repository:** [portfolio-website](https://github.com/fizza-yousaf/portfolio-website)
+- **LinkedIn:**
