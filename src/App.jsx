@@ -1,8 +1,11 @@
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 import Assistant from './components/Assistant'
-import { HashRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
+
 import Home from './pages/Home'
 import About from './pages/About'
 import Skills from './pages/Skills'
@@ -10,4 +13,28 @@ import Experience from './pages/Experience'
 import Projects from './pages/Projects'
 import Contact from './pages/Contact'
 import Services from './pages/Services'
-export default function App(){return <HashRouter><ScrollToTop/><Navbar/><Routes><Route path="/" element={<Home/>}/><Route path="/about" element={<About/>}/><Route path="/skills" element={<Skills/>}/><Route path="/experience" element={<Experience/>}/><Route path="/projects" element={<Projects/>}/><Route path="/contact" element={<Contact/>}/><Route path="/services" element={<Services/>}/><Route path="*" element={<Home/>}/></Routes><Footer/><Assistant/></HashRouter>}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/skills" element={<Skills />} />
+        <Route path="/experience" element={<Experience />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="*" element={<Home />} />
+      </Routes>
+
+      <Footer />
+
+      <Assistant />
+    </BrowserRouter>
+  )
+}
