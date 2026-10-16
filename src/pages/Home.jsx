@@ -1,5 +1,7 @@
 
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
+
 import {
   ArrowUpRight,
   ArrowRight,
@@ -14,6 +16,23 @@ import ProjectCard from '../components/ProjectCard'
 export default function Home() {
   return (
     <>
+      {/* Homepage SEO Metadata */}
+      <Helmet>
+        <title>
+          Fizza Yousaf | Frontend Developer & React Developer
+        </title>
+
+        <meta
+          name="description"
+          content="Fizza Yousaf is a Frontend Developer based in Islamabad, Pakistan, specializing in React.js, JavaScript, WordPress and Webflow. Explore her portfolio, projects and experience."
+        />
+
+        <link
+          rel="canonical"
+          href="https://portfolio-website-pi-eight-70.vercel.app/"
+        />
+      </Helmet>
+
       {/* Hero Section */}
       <section className="hero container">
         <div className="hero-copy">
