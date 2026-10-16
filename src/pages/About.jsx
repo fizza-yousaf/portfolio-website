@@ -25,9 +25,9 @@ export default function About() {
         />
 
         <link
-          rel="canonical"
-          href="https://portfolio-website-pi-eight-70.vercel.app/about"
-        />
+  rel="canonical"
+  href="https://portfolio-website-pi-eight-70.vercel.app/about"
+/>
       </Helmet>
 
       <main className="page container">
