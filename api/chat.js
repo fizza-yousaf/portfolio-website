@@ -42,41 +42,54 @@ Rules:
 
 export async function POST(request) {
   try {
-    if (!process.env.GEMINI_API_KEY) {
+    // Check whether the Gemini API key is configured.
+    const apiKey = process.env.GEMINI_API_KEY;
+
+    if (!apiKey) {
+      console.error("GEMINI_API_KEY is missing.");
+
       return Response.json(
-        { error: 'Gemini API key is not configured.' },
+        { error: "Gemini API key is not configured." },
         { status: 500 }
       );
     }
 
-    if (Number(request.headers.get('content-length')) > 12000) {
+    // Prevent excessively large requests.
+    const contentLength = Number(
+      request.headers.get("content-length")
+    );
+
+    if (contentLength > 12000) {
       return Response.json(
-        { error: 'Request is too large.' },
+        { error: "Request is too large." },
         { status: 413 }
       );
     }
 
+    // Read the incoming message and conversation history.
     const { message, history = [] } = await request.json();
 
+    // Validate the request.
     if (
-      typeof message !== 'string' ||
+      typeof message !== "string" ||
       !message.trim() ||
       message.length > 500 ||
       !Array.isArray(history)
     ) {
       return Response.json(
-        { error: 'Invalid message.' },
+        { error: "Invalid message." },
         { status: 400 }
       );
     }
 
+    // Clean and limit conversation history.
     const safeHistory = history
       .slice(-10)
       .filter(
         (item) =>
           item &&
-          ['user', 'model'].includes(item.role) &&
-          typeof item.text === 'string' &&
+          ["user", "model"].includes(item.role) &&
+          typeof item.text === "string" &&
           item.text.length <= 1000
       )
       .map((item) => ({
@@ -84,40 +97,59 @@ export async function POST(request) {
         parts: [{ text: item.text }],
       }));
 
-    // Only include complete user/model pairs.
+    // Only include complete user/model conversation pairs.
     const validHistory = [];
-    let expectedRole = 'user';
+
+    let expectedRole = "user";
 
     for (const item of safeHistory) {
-      if (item.role !== expectedRole) continue;
+      if (item.role !== expectedRole) {
+        continue;
+      }
 
       validHistory.push(item);
-      expectedRole = expectedRole === 'user' ? 'model' : 'user';
+
+      expectedRole =
+        expectedRole === "user" ? "model" : "user";
     }
 
-    if (validHistory.at(-1)?.role === 'user') {
+    // Remove an incomplete final conversation pair.
+    if (validHistory.at(-1)?.role === "user") {
       validHistory.pop();
     }
 
+    // Send the message to Gemini.
     const response = await fetch(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent',
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
       {
-        method: 'POST',
+        method: "POST",
+
         headers: {
-          'Content-Type': 'application/json',
-          'x-goog-api-key': process.env.GEMINI_API_KEY,
+          "Content-Type": "application/json",
+          "x-goog-api-key": apiKey,
         },
+
         body: JSON.stringify({
           systemInstruction: {
-            parts: [{ text: PORTFOLIO_CONTEXT }],
+            parts: [
+              {
+                text: PORTFOLIO_CONTEXT,
+              },
+            ],
           },
+
           contents: [
             ...validHistory,
             {
-              role: 'user',
-              parts: [{ text: message.trim() }],
+              role: "user",
+              parts: [
+                {
+                  text: message.trim(),
+                },
+              ],
             },
           ],
+
           generationConfig: {
             temperature: 0.4,
             maxOutputTokens: 500,
@@ -126,35 +158,56 @@ export async function POST(request) {
       }
     );
 
+    // Log the actual Gemini error for debugging.
     if (!response.ok) {
-      console.error('Gemini API error:', response.status);
+      const errorBody = await response.text();
+
+      console.error("Gemini API error:", {
+        status: response.status,
+        body: errorBody,
+      });
 
       return Response.json(
-        { error: 'AI service is temporarily unavailable.' },
+        {
+          error: "AI service is temporarily unavailable.",
+        },
         { status: 502 }
       );
     }
 
+    // Parse Gemini's response.
     const data = await response.json();
 
+    // Extract the generated reply.
     const reply = data.candidates?.[0]?.content?.parts
-      ?.map((part) => part.text || '')
-      .join('')
+      ?.map((part) => part.text || "")
+      .join("")
       .trim();
 
+    // Handle empty Gemini responses.
     if (!reply) {
+      console.error("Gemini returned no text:", {
+        finishReason: data.candidates?.[0]?.finishReason,
+        promptFeedback: data.promptFeedback,
+      });
+
       return Response.json(
-        { error: 'No response generated.' },
+        { error: "No response generated." },
         { status: 502 }
       );
     }
 
-    return Response.json({ reply });
+    // Return the AI-generated response to the frontend.
+    return Response.json({
+      reply,
+    });
   } catch (error) {
-    console.error('Chat error:', error);
+    console.error("Chat function error:", error);
 
     return Response.json(
-      { error: 'Unable to process the message.' },
+      {
+        error: "Unable to process the message.",
+      },
       { status: 500 }
     );
   }
