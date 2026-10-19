@@ -10,6 +10,12 @@ import {
   Lightbulb
 } from 'lucide-react'
 
+const SITE_URL =
+  'https://portfolio-website-pi-eight-70.vercel.app'
+
+const IMAGE_NAME = 'fizza-portrait-purple.png'
+const IMAGE_URL = `${SITE_URL}/${IMAGE_NAME}`
+
 export default function About() {
   return (
     <>
@@ -24,13 +30,116 @@ export default function About() {
           content="Learn about Fizza Yousaf, a Software Engineering graduate and Frontend Developer based in Islamabad, Pakistan, specializing in React.js, JavaScript, WordPress and Webflow."
         />
 
+        <meta
+          name="robots"
+          content="index, follow, max-image-preview:large"
+        />
+
         <link
-  rel="canonical"
-  href="https://portfolio-website-pi-eight-70.vercel.app/about"
-/>
+          rel="canonical"
+          href={`${SITE_URL}/about`}
+        />
+
+        {/* Open Graph Metadata */}
+        <meta
+          property="og:type"
+          content="profile"
+        />
+
+        <meta
+          property="og:title"
+          content="About Fizza Yousaf | Frontend Developer"
+        />
+
+        <meta
+          property="og:description"
+          content="Meet Fizza Yousaf, a Frontend Developer based in Islamabad, Pakistan, specializing in React.js, JavaScript, WordPress and Webflow."
+        />
+
+        <meta
+          property="og:url"
+          content={`${SITE_URL}/about`}
+        />
+
+        <meta
+          property="og:image"
+          content={IMAGE_URL}
+        />
+
+        <meta
+          property="og:image:alt"
+          content="Fizza Yousaf - Frontend Developer in Islamabad"
+        />
+
+        <meta
+          property="og:image:type"
+          content="image/png"
+        />
+
+        {/* Twitter / X Metadata */}
+        <meta
+          name="twitter:card"
+          content="summary_large_image"
+        />
+
+        <meta
+          name="twitter:title"
+          content="Fizza Yousaf | Frontend Developer"
+        />
+
+        <meta
+          name="twitter:description"
+          content="Explore the professional background, experience and frontend development skills of Fizza Yousaf."
+        />
+
+        <meta
+          name="twitter:image"
+          content={IMAGE_URL}
+        />
+
+        {/* Image Preload */}
+        <link
+          rel="preload"
+          as="image"
+          href={`/${IMAGE_NAME}`}
+        />
+
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            name: 'Fizza Yousaf',
+            url: SITE_URL,
+            image: IMAGE_URL,
+            jobTitle: 'Frontend Developer',
+            description:
+              'Frontend Developer specializing in React.js, JavaScript, WordPress and Webflow.',
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: 'Islamabad',
+              addressCountry: 'PK'
+            },
+            alumniOf: {
+              '@type': 'CollegeOrUniversity',
+              name:
+                'Mirpur University of Science and Technology'
+            },
+            knowsAbout: [
+              'React.js',
+              'JavaScript',
+              'HTML',
+              'CSS',
+              'WordPress',
+              'Webflow',
+              'Frontend Development'
+            ]
+          })}
+        </script>
       </Helmet>
 
       <main className="page container">
+        {/* Page Introduction */}
         <div className="page-intro">
           <span className="section-label">
             GET TO KNOW ME
@@ -46,14 +155,21 @@ export default function About() {
           </p>
         </div>
 
+        {/* About Section */}
         <div className="about-grid">
+          {/* Portrait */}
           <div className="about-portrait">
             <span className="portrait-ring" />
 
             <img
               className="about-portrait-image"
-              src={`${import.meta.env.BASE_URL}fizza-portrait.png`}
-              alt="Fizza Yousaf - Frontend Developer based in Islamabad, Pakistan"
+              src={`/${IMAGE_NAME}`}
+              alt="Fizza Yousaf wearing a floral headscarf - Frontend Developer based in Islamabad, Pakistan"
+              width="512"
+              height="512"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
             />
 
             <span className="portrait-note">
@@ -61,6 +177,7 @@ export default function About() {
             </span>
           </div>
 
+          {/* About Content */}
           <div className="about-content">
             <h2>
               Hi, I'm Fizza Yousaf — a Frontend Developer
@@ -109,6 +226,7 @@ export default function About() {
               web applications.
             </p>
 
+            {/* Highlights */}
             <div className="about-highlights">
               <div>
                 <MapPin size={21} />
@@ -139,6 +257,7 @@ export default function About() {
               </div>
             </div>
 
+            {/* Contact Button */}
             <Link
               to="/contact"
               className="btn btn-primary"
