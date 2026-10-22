@@ -13,7 +13,7 @@ import {
 const SITE_URL =
   'https://portfolio-website-pi-eight-70.vercel.app'
 
-const IMAGE_NAME = 'fizza-portrait-purple.png'
+const IMAGE_NAME = 'fizza-portrait.png'
 const IMAGE_URL = `${SITE_URL}/${IMAGE_NAME}`
 
 export default function About() {
